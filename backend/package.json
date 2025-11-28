@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "hello": "nodemon src/server.js",
     "start": "cross-env NODE_ENV=production node src/server.js"
