@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "hello": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "cross-env NODE_ENV=production node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "mongoose": "^8.10.1"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.11"
   }
 }
