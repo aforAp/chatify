@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
 import { sendWelcomeEmail } from "../emails/emailHandlers.js";
+import cookie from "cookie-parser";
 //for the password hashing
 import "dotenv/config";
 
@@ -31,7 +32,7 @@ try {
   if(user) return res.status(400).json({
     message: "email already exists"
   })
-  const salt = await bcrypt.genSalt(10)
+  const salt = await bcrypt.genSalt(10);
   //genSalt will add the random string to the password and it was secure 10 was krmreo enough fro the secure protocol
 
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -68,4 +69,45 @@ try {
     message: "Internal server error"
   })
 }
+};
+
+export const login = async (req, res) => {
+   const {email, password} = req.body;
+   console.log(email, password);
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+   try{
+    const user = await User.findOne({email});
+    if(!user) return res.status(400).json({
+      message: "Invalid Credentials"
+      //never tell the mailicous user which one was invalid
+      
+    })
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
+    //bcrypt will decrypt the encrypted code 
+      if(!isPasswordCorrect) return res.status(400).json({
+      message: "Invalid Credentials" 
+    });
+    generateToken(user._id, res)
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+   } catch(error) {
+      console.error("Error in login controller");
+      res.status(500).json({
+        message: "Internal server error"
+      });
+   }
+};
+//it will remove the cookie from the console note it
+export const logout = async(_, res) => {
+  res.cookie("jwt", "", {maxAge: 0})
+  res.status(200).json({
+    message: "Logged out successfully"
+  })
+
 };
