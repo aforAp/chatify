@@ -5,11 +5,11 @@ import messageRoutes from "./routes/message.route.js";
 import path from "path";
 import { connectDB } from "./lib/db.js";
 //Because export default router is used inside auth.route.js, you can import it using any variable name you want — including authRoutes.
-dotenv.config();
+import { ENV } from "./lib/env.js";
 
 const app = express();
 const __dirname = path.resolve();
-const PORT = process.env.PORT || 3000;
+const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
 //why this middleware if the user doing the signup then the signup fields will triggere the datas and data which needs to send back to the client
@@ -20,7 +20,7 @@ app.use("/api/messages", messageRoutes);
 
 //make ready for deployment
 
-if(process.env.NODE_ENV  === 'production'){
+if(ENV.NODE_ENV  === 'production'){
   app.use(express.static(path.join(__dirname, "../frontend/dist")))
   
   app.get("*", (req, res) => {

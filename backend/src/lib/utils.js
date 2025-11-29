@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
-
+import { ENV } from "./env.js";
 export const generateToken = (userId, res) => {
-  const {JWT_SECRET} = process.env;
+  const {JWT_SECRET} = ENV;
   if(!JWT_SECRET) {
     throw new Error("JWT SECRET is not configured");
   }
@@ -21,3 +21,5 @@ return token;
 //if wre are in development it was false prod it was true
 //http://localhost
 //https://dsmakmk.com
+
+///hello the data was awesome
