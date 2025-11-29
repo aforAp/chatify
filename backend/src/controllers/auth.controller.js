@@ -39,7 +39,8 @@ try {
    })
 
    if(newUser) {
-      generateToken(newUser._id, res)
+    const savedUser = await newUser.save();
+      generateToken(savedUser._id, res)
       await newUser.save()
       //it means data was saved successfully
      res.status(201).json({
