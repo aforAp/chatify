@@ -5,6 +5,7 @@ import {arcjetProtection} from "../middleware/arcjet.middleware.js";
 const router = express.Router();
 //this is actually more efficient since authenticated requests get blocked by rate limiting before
 //hitting the auth middleware.
+//it will get the rate limiting and authenicated
 router.use(arcjetProtection, protectRoute);
 router.get("/contacts", getAllContacts);
 router.get("/chats", getChatPartners);
