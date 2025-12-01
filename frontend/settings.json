@@ -1,0 +1,18 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[postcss]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[scss]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "postcss": "css"
+  }
+}

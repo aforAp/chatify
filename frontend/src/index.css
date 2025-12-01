@@ -1,3 +1,64 @@
+/* prettier-ignore-start */
+
+
 @import "tailwindcss";
 
 @plugin "daisyui";
+
+@keyframes border-rotate {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+/* Utility class for rotation animation */
+.animate-border {
+  --border-angle: 0deg;
+  animation: border-rotate 6s linear infinite;
+}
+
+/* Animated gradient border container */
+.animated-border {
+  position: relative;
+  border-radius: 1rem; /* matches your rounded corners */
+  border: 2px solid transparent; /* border is transparent to show gradient */
+  background:
+    linear-gradient(#111111, #111111) padding-box,
+    conic-gradient(
+      from var(--border-angle),
+      #06b6d4,
+      #22d3ee,
+      #facc15,
+      #ec4899,
+      #06b6d4
+    ) border-box;
+}
+
+/* prettier-ignore */
+.auth-input-label {
+  @apply block text-sm font-medium text-slate-300 mb-2;
+}
+
+.input {
+  @apply w-full bg-slate-800/50 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-slate-200 placeholder-slate-400 focus:ring-2 focus:ring-cyan-500 focus:border-transparent;
+}
+
+/* prettier-ignore */
+.auth-badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full
+  bg-cyan-500/20 text-cyan-300;
+}
+
+.auth-btn {
+  @apply w-full bg-cyan-500 text-white rounded-lg py-2.5 font-medium
+  hover:bg-cyan-600 focus:ring-2 focus:ring-cyan-500;
+}
+
+.auth-link {
+  @apply px-4 py-2 inline-block bg-cyan-500/10 rounded-lg text-cyan-400
+  hover:text-cyan-500 text-sm transition-colors;
+}
+
+
+
+/* prettier-ignore-end */
