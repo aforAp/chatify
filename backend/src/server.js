@@ -7,12 +7,20 @@ import { connectDB } from "./lib/db.js";
 //Because export default router is used inside auth.route.js, you can import it using any variable name you want — including authRoutes.
 import { ENV } from "./lib/env.js";
 import cookieParser from "cookie-parser";
-
+import cors from "cors";
 const app = express();
 const __dirname = path.resolve();
 const PORT = 3003;
 app.set("trust proxy", true);
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true,               // if using cookies or sessions
+  })
+);
 app.use(express.json());
+//this will allow front end to sedn the cookie to the backend
+
 app.use(cookieParser());
 //middleware for the jwt token
 //why this middleware if the user doing the signup then the signup fields will triggere the datas and data which needs to send back to the client
