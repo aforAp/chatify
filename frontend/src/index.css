@@ -5,9 +5,32 @@
 
 @plugin "daisyui";
 
-@keyframes border-rotate {
-  to {
-    --border-angle: 360deg;
+:root {
+  --tw-color-slate-50: 248 250 252;
+  --tw-color-slate-100: 241 245 249;
+  --tw-color-slate-200: 226 232 240;
+  --tw-color-slate-800: 30 41 59;
+  --tw-color-slate-900: 15 23 42;
+}
+
+@keyframes train {
+  0% { stroke-dashoffset: 0; }
+  50% {stroke-dashoffset: 343;}
+  100% { stroke-dashoffset: 768; } /* total perimeter = 256*2 + 128*2 = 768, minus train length 20 */
+}
+
+.animate-train {
+  animation: train 4s linear infinite;
+}
+
+@layer utilities {
+  
+  .hoverChange600 {
+    @apply hover:bg-cyan-600;
+  }
+  
+  .hoverChange500 {
+    @apply hover:bg-cyan-500;
   }
 }
 
@@ -19,24 +42,29 @@
 
 /* Animated gradient border container */
 .animated-border {
-  position: relative;
-  border-radius: 1rem; /* matches your rounded corners */
-  border: 2px solid transparent; /* border is transparent to show gradient */
-  background:
-    linear-gradient(#111111, #111111) padding-box,
+  position: absolute;
+  border-radius: 1rem;
+  /* matches your rounded corners */
+  border: 2px solid transparent;
+  /* border is transparent to show gradient */
+  background: linear-gradient(#111111, #111111) padding-box,
     conic-gradient(
-      from var(--border-angle),
-      #06b6d4,
-      #22d3ee,
-      #facc15,
-      #ec4899,
-      #06b6d4
-    ) border-box;
+  from var(--border-angle),
+  #06b6d4,
+  #22d3ee,
+  #facc15,
+  #ec4899,
+  #06b6d4
+  ) border-box;
 }
 
 /* prettier-ignore */
 .auth-input-label {
   @apply block text-sm font-medium text-slate-300 mb-2;
+}
+
+.auth-input-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5;
 }
 
 .input {
@@ -49,16 +77,3 @@
   bg-cyan-500/20 text-cyan-300;
 }
 
-.auth-btn {
-  @apply w-full bg-cyan-500 text-white rounded-lg py-2.5 font-medium
-  hover:bg-cyan-600 focus:ring-2 focus:ring-cyan-500;
-}
-
-.auth-link {
-  @apply px-4 py-2 inline-block bg-cyan-500/10 rounded-lg text-cyan-400
-  hover:text-cyan-500 text-sm transition-colors;
-}
-
-
-
-/* prettier-ignore-end */

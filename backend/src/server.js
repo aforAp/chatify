@@ -10,16 +10,21 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 const app = express();
 const __dirname = path.resolve();
-const PORT = 3003;
-app.set("trust proxy", true);
-app.use(
-  cors({
-    origin: "http://localhost:5173", // your frontend URL
-    credentials: true,               // if using cookies or sessions
-  })
-);
+const PORT = ENV.PORT;
 app.use(express.json());
-//this will allow front end to sedn the cookie to the backend
+app.use(express.urlencoded({ extended: true }));
+app.set("trust proxy", true);
+
+
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5175"];
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error("Not allowed by CORS"), false);
+  },
+  credentials: true,
+}));
 
 app.use(cookieParser());
 //middleware for the jwt token
@@ -30,16 +35,16 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 //make ready for deployment
-
+/*
 if(ENV.NODE_ENV  === 'production'){
   app.use(express.static(path.join(__dirname, "../frontend/dist")))
   
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   })
-} 
+} */
 
-app.listen(PORT, () => {console.log("Server running on port 3000" + PORT)
+app.listen(PORT, () => {console.log("Server running on port" + PORT)
 connectDB();
 }
 );
