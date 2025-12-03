@@ -25,7 +25,7 @@ function BorderAnimatedContainer({ children }) {
   <div className="relative z-10 p-4 w-full m-0.5 text-white bg-slate-900 rounded-2xl">
  {children}
   </div>
-            
+       
     </div>
   );
 }
